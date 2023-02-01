@@ -13,7 +13,7 @@ def relative_to_assets(path: str) -> Path:
     return ASSETS_PATH / Path(path)
 
 def back():
-    from mainPage import mainPage
+    from viewMainPage import mainPage
     mainPage(window)
 
 def clickVigenereExtend():
