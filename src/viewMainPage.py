@@ -14,22 +14,24 @@ def relative_to_assets(path: str) -> Path:
 
 # Declare the Button
 def clickVigenere():
-    from viewVigenere import vigenereCipher
-    vigenereCipher(window)
+    window.destroy()
+    import guiVigenere
+    guiVigenere(window)
 
 def clickVigenereExtend():
-    from viewVigenereExtend import vigenereCipherExtend
-    vigenereCipherExtend(window)
+    window.destroy()
+    import guiVigenereExtend
+    guiVigenereExtend(window)
 
 def clickPlayfair():
-    pass
-    #window.destroy()
-    #import guiPlayfairCip
-    #guiPlayfairCip(window)
+    window.destroy()
+    import guiPlayfairCip
+    guiPlayfairCip(window)
 
 def clickOTP():
-    from viewOTP import otpCipher
-    otpCipher(window)
+    window.destroy()
+    import guiOTP
+    guiOTP(window)
 
 
 def mainPage(screen=None):
