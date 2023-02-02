@@ -1,7 +1,11 @@
 # file test untuk Playfair Cipher
+#from pathlib import Path
 
+#from PlayfairCipher import *
 import sys
-sys.path.append(r"../src")
+
+sys.path.append(r"../src/")
+
 # aku gatau gimana cara import function dri folder yg berbeda
 # ini tes nya dibuat di folder yg sama dengan filenya
 
@@ -26,7 +30,7 @@ print(playfair.idxlocator(idx_locate, cip_mat))
 
 # input plaintext
 plaintxt = input("Plain Text: ")
-plaintxt = plaintxt.isalpha()
+plaintxt = playfair.removeSpecialCharacter(plaintxt)
 plaintxt = plaintxt.replace(" ", "")
 plaintxt = plaintxt.upper()
 
