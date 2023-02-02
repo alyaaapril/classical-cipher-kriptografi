@@ -22,8 +22,10 @@ def clickVigenereExtend():
     vigenereCipherExtend(window)
 
 def clickPlayfair():
-    from viewPlayfairCip import playfairCipher
-    playfairCipher(window)
+    pass
+    #window.destroy()
+    #import guiPlayfairCip
+    #guiPlayfairCip(window)
 
 def clickOTP():
     from viewOTP import otpCipher
@@ -36,7 +38,7 @@ def mainPage(screen=None):
     global window
     window = Tk()
     window.title("Classical Cipher")
-    window.geometry("1200x630")
+    window.geometry("800x500")
     window.configure(bg = "#FFFFFF")
 
 
@@ -54,40 +56,40 @@ def mainPage(screen=None):
     image_image_1 = PhotoImage(
         file=relative_to_assets("image_1.png"))
     image_1 = canvas.create_image(
-        320.0,
-        390.0,
+        140.0,
+        300.0,
         image=image_image_1
     )
 
     image_image_2 = PhotoImage(
         file=relative_to_assets("image_2.png"))
     image_2 = canvas.create_image(
-        1108.0,
-        539.0,
+        740.0,
+        460.0,
         image=image_image_2
     )
 
     image_image_3 = PhotoImage(
         file=relative_to_assets("image_3.png"))
     image_3 = canvas.create_image(
-        1150.0,
-        39.0,
+        770.0,
+        30.0,
         image=image_image_3
     )
 
     canvas.create_rectangle(
-        1068.0,
-        116.0,
-        1223.0,
-        251.0,
+        725.0,
+        113.0,
+        842.0,
+        217.0,
         fill="#D3C3B1",
         outline="")
 
     canvas.create_rectangle(
-        897.0,
-        540.0,
-        1119.0,
-        675.0,
+        596.0,
+        440.0,
+        764.0,
+        544.0,
         fill="#D3C3B1",
         outline="")
 
@@ -101,10 +103,10 @@ def mainPage(screen=None):
         relief="flat"
     )
     button_1.place(
-        x=123.0,
-        y=349.0,
-        width=253.0,
-        height=118.0
+        x=103.0,
+        y=278.0,
+        width=160.0,
+        height=64.0
     )
 
     button_image_2 = PhotoImage(
@@ -117,10 +119,10 @@ def mainPage(screen=None):
         relief="flat"
     )
     button_2.place(
-        x=409.0,
-        y=349.0,
-        width=253.0,
-        height=118.0
+        x=280.0,
+        y=277.0,
+        width=160.0,
+        height=64.0
     )
 
     button_image_3 = PhotoImage(
@@ -133,10 +135,10 @@ def mainPage(screen=None):
         relief="flat"
     )
     button_3.place(
-        x=123.0,
-        y=197.0,
-        width=253.0,
-        height=118.0
+        x=103.0,
+        y=195.0,
+        width=160.0,
+        height=64.0
     )
 
     button_image_4 = PhotoImage(
@@ -149,10 +151,10 @@ def mainPage(screen=None):
         relief="flat"
     )
     button_4.place(
-        x=409.0,
-        y=197.0,
-        width=253.0,
-        height=118.0
+        x=280.0,
+        y=195.0,
+        width=160.0,
+        height=64.0
     )
     window.resizable(False, False)
     window.mainloop()
