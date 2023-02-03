@@ -2,7 +2,9 @@ import sys
 import string
 from tkinter import *
 from tkinter import ttk
+from tkinter import filedialog
 from PlayFairCipher import playfair
+from fileOperation import *
 
 import itertools
 from tkinter.messagebox import showinfo
@@ -15,15 +17,23 @@ window.title("Playfair Cipher")
 window.geometry('800x500')
 window.configure(bg="#E0E1E9")
 
+# File explorer window
+def open_file():
+    filename = filedialog.askopenfilename(initialdir = "/",
+                                          title = "Select a File",
+                                          filetypes = (("Text files",
+                                                        "*.txt*"),
+                                                       ("all files",
+                                                        "*.*")))
+    # Change label contents
+    print(filename)
+    entry_text = readFile(filename)
+    entry_message.insert(END, entry_text)
+    filename.close()
+
 def add_space(text):
     spacedText = " ".join(text[i:i + 5] for i in range(0, len(text), 5))
     return(spacedText)
-
-def open_file():
-    file = open("kripto.txt", "r")
-    text = file.read()
-    entry_message.insert(END, text)
-    file.close()
 
 def save_file():
     text_file = open("test.txt", "w")
@@ -104,7 +114,7 @@ btn_browseFile = Button(window, height = 1 , width=10, text="Browse a file", fon
 btn_browseFile.grid(row=1, column=2)
 
 # Clear key & message
-btn_clear = Button(window, height =1 , width=20, text="Clear key & message", bg="#B8B8C7", fg="black", font = ('arial ', 10), command=clear_text)
+btn_clear = Button(window, height =1 , width=20, text="Clear key & message", bg="#B8B8C7", fg="black", font = ('arial ', 10), command=clear_messageKey)
 btn_clear.grid(row=5, columnspan=3, pady=2)
 
 # OUTPUT MESSAGE
