@@ -2,12 +2,11 @@ import sys
 import string
 from tkinter import *
 from tkinter import ttk
-
+from PlayFairCipher import playfair
 
 import itertools
 from tkinter.messagebox import showinfo
 
-from PlayFairCipher import playfair
 
 sys.path.append(r"../")
 
@@ -48,46 +47,42 @@ def click_back():
     mainPage(window)
 
 # Encryption
-def changeMatrix():
-    key = entry_key.get()
-    key = playfair.removeSpecialCharacter(key)
+def changeMatrix(keyword):
+    key = playfair.removeSpecialCharacter(keyword)
     key = key.replace(" ", "")
     key = key.upper()
     arr_key = playfair.key_into_arr(key)
     key_matrix = playfair.full_arrkey(arr_key)
-    cip_matrix = playfair.matrix_cipher(playfair.matrix(0,5,5),key_matrix)
-    return playfair.square(cip_matrix)
+    mtrix = playfair.matrix(0,5,5)
+    cip_matrix = playfair.matrix_cipher(mtrix,key_matrix)
+    return cip_matrix
 
 def encrypt_message():
-    text = entry_message.get()
-    text = playfair.removeSpecialCharacter(text)
-    text = text.replace(" ", "")
-    text = text.upper()
-    encryption = playfair.encrypt(text, changeMatrix())
-    text_entry1.delete("1.0", END)
-    text_entry2.delete("1.0", END)
-    if encryption is not None:
-        text_entry1.insert(END, encryption)
-        text_entry2.insert(END, add_space(encryption))
-    else:
-        text_entry1.insert(END, "None")
-        text_entry2.insert(END, "None")
+    message = entry_message.get()
+    key = entry_key.get()
+    cipher_matrix = changeMatrix(key)
+    plaintxt = message
+    plaintxt = playfair.removeSpecialCharacter(plaintxt)
+    plaintxt = plaintxt.replace(" ", "")
+    plaintxt = plaintxt.upper()
+    ciphertxt= playfair.encrypt(plaintxt, cipher_matrix)
+    text_entry1.delete('1.0', END)
+    text_entry2.delete('1.0', END)
+    text_entry1.insert(END, ciphertxt)
+    text_entry2.insert(END, add_space(ciphertxt))
 
 def decrypt_message():
-    text = entry_message.get()
-    text = playfair.removeSpecialCharacter(text)
-    text = text.replace(" ", "")
-    text = text.upper()
-    decryption = playfair.decrypt(text, changeMatrix)
-    text_entry1.delete("1.0", END)
-    text_entry2.delete("1.0", END)
-    if decryption is not None:
-        text_entry1.insert(END, decryption)
-        text_entry2.insert(END, add_space(decryption))
-    else:
-        text_entry1.insert(END, "None")
-        text_entry2.insert(END, "None")
-
+    message = entry_message.get()
+    key = entry_key.get()
+    cipher_matrix = changeMatrix(key)
+    ciphertxt = message
+    ciphertxt = ciphertxt.replace(" ","")
+    ciphertxt = ciphertxt.upper()
+    plaintxt = playfair.decrypt(ciphertxt, cipher_matrix)
+    text_entry1.delete('1.0', END)
+    text_entry2.delete('1.0', END)
+    text_entry1.insert(END, plaintxt)
+    text_entry2.insert(END, add_space(plaintxt))
 
 title = Label(window, text = 'Playfair Cipher', font = ('Inter', 18), bd=15, bg="#E0E1E9")
 title.grid(row=0, column=0)
@@ -102,7 +97,6 @@ label_keyword.grid(row=4, column=0, stick='w', padx=15, pady=5)
 
 message = StringVar()
 key = StringVar()
-
 
 entry_message = Entry(window, textvariable=message, width=50)
 entry_message.grid(row=1, column=1, padx=10, ipady=5)

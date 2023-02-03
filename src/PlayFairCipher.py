@@ -52,15 +52,6 @@ class playfair:
                 idx+=1
         return cipher_matrix
 
-    # Change 5x5 matrix into square form
-    def square(cipher_matrix):
-        id_row = 0
-        id_col = 0
-        for i in range(len(cipher_matrix)):
-            for j in range(len(cipher_matrix[i])):
-                print(cipher_matrix[i][j], end = "    ")
-            print()
-
     # locating the index in alfabet character
     def idxlocator(char, cip_mat):
         lt = list()
@@ -73,57 +64,58 @@ class playfair:
                     lt.append(x)
                     return lt
 
-    # PLAINTEXT
+
+    # prepare the text for encryption or decryption
+    def clean_text(text):
+        for idx in range(0, len(text)+1, 2):
+            if idx < len(text)-1:
+                #check if there's the same char in current and next index
+                if text[idx] == text[idx+1]:
+                    text=text[:idx]+'X'+text[idx+1:]
+        if len(text)%2 != 0:
+            text=text[:]+'X'
+        return text
+
     # ENCRYPTION
     def encrypt(plaintx, cipher_matrix):
+        plaintxt_clean = playfair.clean_text(plaintx)
         i = 0
-        for idx in range(0, len(plaintx)+1, 2):
-            if idx < len(plaintx)-1:
-                #check if there's the same char in current and next index
-                if plaintx[idx] == plaintx[idx+1]:
-                    plaintx=plaintx[:idx+1]+'X'+plaintx[idx+1:]
-        #check if length of plain text is odd
-        if len(plaintx)%2 != 0:
-            plaintx=plaintx[:]+'X'
-        print("Cipher Text: ", end=" ")
-        while i < len(plaintx):
+        cip = ""
+        while i < len(plaintxt_clean):
             lt_curr = list()
-            lt_curr = playfair.idxlocator(plaintx[i], cipher_matrix)
+            lt_curr = playfair.idxlocator(plaintxt_clean[i], cipher_matrix)
             lt_next = list()
-            lt_next = playfair.idxlocator(plaintx[i+1], cipher_matrix)
+            lt_next = playfair.idxlocator(plaintxt_clean[i+1], cipher_matrix)
             #If couple of char located in the same column
             if lt_curr[1] == lt_next[1]:
-                print(f"{cipher_matrix[(lt_curr[0]+ 1)% 5][lt_curr[1]]}{cipher_matrix[(lt_next[0]+ 1)% 5][lt_next[1]]}", end= " ")
+                cip += f"{cipher_matrix[(lt_curr[0]+ 1)% 5][lt_curr[1]]}{cipher_matrix[(lt_next[0]+ 1)% 5][lt_next[1]]}"    
             #If couple of char located in the same row
             elif lt_curr[0] == lt_next[0]:
-                print(f"{cipher_matrix[lt_curr[0]][(lt_curr[1]+ 1)%5]}{cipher_matrix[lt_next[0]][(lt_next[1]+ 1)% 5]}", end = " ")
+                cip+= f"{cipher_matrix[lt_curr[0]][(lt_curr[1]+ 1)%5]}{cipher_matrix[lt_next[0]][(lt_next[1]+ 1)% 5]}"
             else:
-                print(f"{cipher_matrix[lt_curr[0]][lt_next[1]]}{cipher_matrix[lt_next[0]][lt_curr[1]]}", end = " ")
-            i += 2
+                cip += f"{cipher_matrix[lt_curr[0]][lt_next[1]]}{cipher_matrix[lt_next[0]][lt_curr[1]]}"
+            i+=2
+        return cip
 
     # DECRYPTION
     def decrypt(ciphertx, cipher_matrix):
+        ciphertxt_clean = playfair.clean_text(ciphertx)
         i = 0
-        for idx in range(0, len(ciphertx)+1, 2):
-            if idx < len(ciphertx)-1:
-                #check if there's the same char in current and next index
-                if ciphertx[idx] == ciphertx[idx+1]:
-                    ciphertx=ciphertx[:idx+1]+'X'+ciphertx[idx+1:]
-        #check if length of plain text is odd
-        if len(ciphertx)%2 != 0:
-            ciphertx=ciphertx[:]+'X'
-        print("Plain Text: ", end = " ")
-        while i < len(ciphertx):
+        plain=""
+        while i < len(ciphertxt_clean):
             lt_curr = list()
-            lt_curr = playfair.idxlocator(ciphertx[i], cipher_matrix)
+            lt_curr = playfair.idxlocator(ciphertxt_clean[i], cipher_matrix)
             lt_next = list()
-            lt_next = playfair.idxlocator(ciphertx[i+1], cipher_matrix)
+            lt_next = playfair.idxlocator(ciphertxt_clean[i+1], cipher_matrix)
             #If couple of char located in the same column
             if lt_curr[1] == lt_next[1]:
-                print(f"{cipher_matrix[(lt_curr[0]- 1)% 5][lt_curr[1]]}{cipher_matrix[(lt_next[0]- 1)% 5][lt_next[1]]}", end= " ")
+                plain += f"{cipher_matrix[(lt_curr[0]- 1)% 5][lt_curr[1]]}{cipher_matrix[(lt_next[0]- 1)% 5][lt_next[1]]}"
             #If couple of char located in the same row
             elif lt_curr[0] == lt_next[0]:
-                print(f"{cipher_matrix[lt_curr[0]][(lt_curr[1]- 1)%5]}{cipher_matrix[lt_next[0]][(lt_next[1]- 1)% 5]}", end = " ")
+                plain += f"{cipher_matrix[lt_curr[0]][(lt_curr[1]- 1)%5]}{cipher_matrix[lt_next[0]][(lt_next[1]- 1)% 5]}"
             else:
-                print(f"{cipher_matrix[lt_curr[0]][lt_next[1]]}{cipher_matrix[lt_next[0]][lt_curr[1]]}", end = " ")
+                plain += f"{cipher_matrix[lt_curr[0]][lt_next[1]]}{cipher_matrix[lt_next[0]][lt_curr[1]]}"
             i += 2
+        return plain
+
+
