@@ -103,9 +103,6 @@ btn_decrypt.grid(row=7, column=1)
 btn_save = Button(window, text="Save as a file", width = "10", height = "2", font = ('arial ', 10), fg="white", bg="#251F4A", command=save_file)
 btn_save.grid(row=11, columnspan=2)
 
-label_success = Label(window)
-label_success.grid(row=8, column=2)
-
 #Back to gui vigenere encription
 btn_back = Button(window, width=20, bg="#B8B8C7", text="Back to Text Encryption", command=click_back)
 btn_back.place(relx = 0.01, rely = 0.90, anchor ='nw')

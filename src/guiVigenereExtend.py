@@ -142,9 +142,6 @@ btn_decrypt.grid(row=7, column=1)
 btn_save = Button(window, text="Save as a file", width = "10", height = "2", font = ('arial ', 10), fg="white", bg="#251F4A", command=save_file)
 btn_save.grid(row=11, columnspan=3)
 
-label_success = Label(window)
-label_success.grid(row=8, column=2)
-
 #Clear
 btn_clear = Button(window, height =1 , width=10, text="Clear result", bg="#B8B8C7", fg="black", font = ('arial ', 10), command=clear_text)
 btn_clear.grid(row=12, columnspan=3, pady=2)
