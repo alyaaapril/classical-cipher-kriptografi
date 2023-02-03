@@ -32,18 +32,24 @@ def open_file():
     entry_text = readFile(filename)
     entry_message.insert(END, entry_text)
 
-def add_space(text):
-    spacedText = " ".join(text[i:i + 5] for i in range(0, len(text), 5))
-    return(spacedText)
-
 def save_file():
-    text_file = open("test.txt", "w")
+    file_name = filedialog.asksaveasfile(initialdir = "/",
+                                          title = "Save a File",
+                                          filetypes = (("Text files",
+                                                        "*.txt*"),
+                                                       ("all files",
+                                                        "*.*"))).name
+    text_file = open(file_name, "w")
     text_file.write(text_entry1.get(1.0, END))
     text_file.write(text_entry2.get(1.0, END))
     text_file.close()
     showinfo("File saved", "File saved, check your file!")
     text_entry1.delete('1.0', END)
     text_entry2.delete('1.0', END)
+
+def add_space(text):
+    spacedText = " ".join(text[i:i + 5] for i in range(0, len(text), 5))
+    return(spacedText)
 
 def clear_messageKey():
     entry_message.delete(0, END)
