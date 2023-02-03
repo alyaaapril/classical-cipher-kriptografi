@@ -38,7 +38,7 @@ def add_space(text):
     return(spacedText)
 
 def save_file():
-    showinfo("File saved", "This program will automatically save the reesult into file. Please check it !")
+    showinfo("File saved", "The output is already a file. Please check it !")
 
 def clear_messageKey():
     entry_message.delete(0, END)
