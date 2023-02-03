@@ -9,10 +9,10 @@ def readFile(filename):
         print('File not found and can not be opened:', filename)
         exit()
 
-def writeFile(filename, string):
+def writeFile(filename, text):
     try:
         f = open(filename, "w")
-        f.write(string)
+        f.write(text)
         f.close()
     except:
         print('File not found and can not be opened:', filename)
@@ -25,15 +25,15 @@ def readBinaryFile(filename):
         f.close()
         return file_content
     except:
-        print('File not found and can not be opened:', filename)
+        #print('File not found and can not be opened:', filename)
         exit()
     
 
-def writeBinaryFile(filename, string):
+def writeBinaryFile(filename, text):
     try:
         f = open(filename, "wb")
-        f.write(string)
+        f.write(text)
         f.close()
     except:
-        print('File not found and can not be opened:', filename)
+        #print('File not found and can not be opened:', filename)
         exit()

@@ -2,12 +2,13 @@ import sys
 import string
 from tkinter import *
 from tkinter import ttk
-from StandardVigenereCipher import *
+from tkinter import filedialog
 
 import itertools
 from tkinter.messagebox import showinfo
 
-#from PlayfairCipher import playfair
+from StandardVigenereCipher import *
+from fileOperation import *
 
 sys.path.append(r"../")
 
@@ -16,15 +17,24 @@ window.title("Vigenere Cipher")
 window.geometry('800x500')
 window.configure(bg="#E0E1E9")
 
+# file explorer window
+def open_file():
+    filename = filedialog.askopenfilename(initialdir = "/",
+                                          title = "Select a File",
+                                          filetypes = (("Text files",
+                                                        "*.txt*"),
+                                                       ("all files",
+                                                        "*.*")))
+      
+    # Change label contents
+    print(filename)
+    entry_text = readFile(filename)
+    entry_message.insert(END, entry_text)
+    filename.close()
+
 def add_space(text):
     spacedText = " ".join(text[i:i + 5] for i in range(0, len(text), 5))
     return(spacedText)
-
-def open_file():
-    file = open("kripto.txt", "r")
-    text = file.read()
-    entry_message.insert(END, text)
-    file.close()
 
 def save_file():
     text_file = open("test.txt", "w")
