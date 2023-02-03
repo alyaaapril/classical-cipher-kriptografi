@@ -103,7 +103,7 @@ btn_browseFile = Button(window, height = 1 , width=10, text="Browse a file", fon
 btn_browseFile.grid(row=1, column=2)
 
 # Clear key & message
-btn_clear = Button(window, height =1 , width=20, text="Clear key & message", bg="#B8B8C7", fg="black", font = ('arial ', 10), command=clear_text)
+btn_clear = Button(window, height =1 , width=20, text="Clear key & message", bg="#B8B8C7", fg="black", font = ('arial ', 10), command=clear_messageKey)
 btn_clear.grid(row=5, columnspan=3, pady=2)
 
 # OUTPUT MESSAGE
