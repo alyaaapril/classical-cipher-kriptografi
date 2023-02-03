@@ -11,17 +11,6 @@ def removeNonAlphabetCharacter(string):
     str = ''.join(i for i in string if i.isalpha())
     return str
 
-def removeSpace(string):
-    return string.replace(" ", "")
-
-def removeSpcialCharacter(string):
-    str = ''.join(i for i in string if i.isalnum())
-    return str
-
-def removeNumber(string):
-    str = ''.join([i for i in string if not i.isdigit()])
-    return str
-
 def repeatKey(plaintextLength, key) :
     key = list(key)
     actualKey = []

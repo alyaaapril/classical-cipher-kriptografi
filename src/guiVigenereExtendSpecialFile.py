@@ -45,6 +45,7 @@ def clear_messageKey():
     entry_key.delete(0, END)
 
 def click_back():
+    window.destroy()
     import guiVigenereExtend
     guiVigenereExtend(window)
 
