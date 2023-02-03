@@ -1,5 +1,6 @@
 # Program cipher klasik - extended vigenere cipher
 # 256 karakter ascii
+from tkinter.messagebox import showinfo
 
 import fileOperation
 from pathlib import Path
@@ -57,12 +58,14 @@ def encryptBinaryExtendedVigenereCipher(pathFile, key):
     file_extension = Path(pathFile).suffix
     fileOperation.writeBinaryFile(f"encryption{file_extension}", encryptedText.encode("ISO-8859-1")) # ubah kembali file ke file extension yang sesuai
     print(f" Nama file enkripsi adalah encryption{file_extension}\n")
+    showinfo("File encryption success", f"File saved with name encryption{file_extension}, please check it !")
 
 def decryptBinaryExtendedVigenereCipher(pathFile, key):
     f = fileOperation.readBinaryFile(pathFile) 
     binary = f.decode("ISO-8859-1") # decode ke char
     decryptedText = decryptExtendedVigenereCipher(binary, key) # dekripsi dengan fungsi enkripsi 256 ASCII
     file_extension = Path(pathFile).suffix
-    print(decryptedText.encode("ISO-8859-1"))
+    #print(decryptedText.encode("ISO-8859-1"))
     fileOperation.writeBinaryFile(f"decryption{file_extension}", decryptedText.encode("ISO-8859-1")) # ubah kembali file ke file extension yang sesuai
     print(f" Nama file enkripsi adalah encryption{file_extension}\n")
+    showinfo("File decryption success", f"File saved with name decryption{file_extension}, please check it !")

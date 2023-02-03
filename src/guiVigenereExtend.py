@@ -19,6 +19,7 @@ window.configure(bg="#E0E1E9")
 
 # file explorer window
 def open_file():
+    # ambil path
     filename = filedialog.askopenfilename(initialdir = "/",
                                           title = "Select a File",
                                           filetypes = (("Text files",
@@ -30,7 +31,6 @@ def open_file():
     print(filename)
     entry_text = readFile(filename)
     entry_message.insert(END, entry_text)
-    filename.close()
 
 def add_space(text):
     spacedText = " ".join(text[i:i + 5] for i in range(0, len(text), 5))
@@ -57,9 +57,14 @@ def click_back():
     from viewMainPage import mainPage
     mainPage(window)
 
+def click_next():
+    window.destroy()
+    import guiVigenereExtendSpecialFile
+    guiVigenereExtendSpecialFile(window)
+
 # Encryption
 
-def encrypt_message():
+def encrypt_text_message():
     text = entry_message.get()
     key = entry_key.get()
     encryption = encryptExtendedVigenereCipher(text, key)
@@ -68,7 +73,7 @@ def encrypt_message():
     text_entry1.insert(END, encryption)
     text_entry2.insert(END, add_space(encryption))
 
-def decrypt_message():
+def decrypt_text_message():
     cipher = entry_message.get()
     key = entry_key.get()
     decryption = decryptExtendedVigenereCipher(cipher, key)
@@ -128,9 +133,9 @@ text_entry2.grid(row=10, column=1, padx=10, pady=5, ipady=5)
 label_option = Label(window, text="Choose one :", font = ('arial ', 12), bd=15, bg="#E0E1E9")
 label_option.grid(row=6, columnspan=2, stick ='w')
 
-btn_encrypt = Button(window, text="Encrypt message!", width = "15", font = ('arial ', 10), fg="white", bg="#251F4A", command=encrypt_message)
+btn_encrypt = Button(window, text="Encrypt message!", width = "15", font = ('arial ', 10), fg="white", bg="#251F4A", command=encrypt_text_message)
 btn_encrypt.grid(row=7, column=0)
-btn_decrypt = Button(window, text="Decrypt message!", width = "15", font = ('arial ', 10), fg="white", bg="#251F4A", command=decrypt_message)
+btn_decrypt = Button(window, text="Decrypt message!", width = "15", font = ('arial ', 10), fg="white", bg="#251F4A", command=decrypt_text_message)
 btn_decrypt.grid(row=7, column=1)
 
 #Save as File
@@ -148,3 +153,6 @@ btn_clear.grid(row=12, columnspan=3, pady=2)
 btn_back = Button(window, width=20, bg="#B8B8C7", text="Back to Home Page", command=click_back)
 btn_back.place(relx = 0.01, rely = 0.90, anchor ='nw')
 
+#Go to Special File encryption
+btn_back = Button(window, width=30, bg="#B8B8C7", text="Go to Special File Encryption", command=click_next)
+btn_back.place(relx = 0.7, rely = 0.90, anchor ='nw')
