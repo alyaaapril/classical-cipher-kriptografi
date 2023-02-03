@@ -49,8 +49,6 @@ def click_back():
 # Encryption
 def changeMatrix(keyword):
     key = playfair.removeSpecialCharacter(keyword)
-    key = key.replace(" ", "")
-    key = key.upper()
     arr_key = playfair.key_into_arr(key)
     key_matrix = playfair.full_arrkey(arr_key)
     mtrix = playfair.matrix(0,5,5)
@@ -63,8 +61,6 @@ def encrypt_message():
     cipher_matrix = changeMatrix(key)
     plaintxt = message
     plaintxt = playfair.removeSpecialCharacter(plaintxt)
-    plaintxt = plaintxt.replace(" ", "")
-    plaintxt = plaintxt.upper()
     ciphertxt= playfair.encrypt(plaintxt, cipher_matrix)
     text_entry1.delete('1.0', END)
     text_entry2.delete('1.0', END)

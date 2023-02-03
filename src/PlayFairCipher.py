@@ -11,6 +11,8 @@ class playfair:
         for i in string:
             if(i.isalpha()):
                 temp+=i
+        temp = temp.replace(" ", "")
+        temp = temp.upper()
         return temp
 
     # Create Matrix
@@ -66,7 +68,7 @@ class playfair:
 
 
     # prepare the text for encryption or decryption
-    def clean_text(text):
+    def prepare_text(text):
         for idx in range(0, len(text)+1, 2):
             if idx < len(text)-1:
                 #check if there's the same char in current and next index
@@ -78,7 +80,7 @@ class playfair:
 
     # ENCRYPTION
     def encrypt(plaintx, cipher_matrix):
-        plaintxt_clean = playfair.clean_text(plaintx)
+        plaintxt_clean = playfair.prepare_text(plaintx)
         i = 0
         cip = ""
         while i < len(plaintxt_clean):
@@ -99,7 +101,7 @@ class playfair:
 
     # DECRYPTION
     def decrypt(ciphertx, cipher_matrix):
-        ciphertxt_clean = playfair.clean_text(ciphertx)
+        ciphertxt_clean = playfair.prepare_text(ciphertx)
         i = 0
         plain=""
         while i < len(ciphertxt_clean):
