@@ -7,7 +7,7 @@ from tkinter import ttk
 import itertools
 from tkinter.messagebox import showinfo
 
-from PlayfairCipher import playfair
+from PlayFairCipher import playfair
 
 sys.path.append(r"../")
 
@@ -16,6 +16,9 @@ window.title("Playfair Cipher")
 window.geometry('800x500')
 window.configure(bg="#E0E1E9")
 
+def add_space(text):
+    spacedText = " ".join(text[i:i + 5] for i in range(0, len(text), 5))
+    return(spacedText)
 
 def open_file():
     file = open("kripto.txt", "r")
@@ -45,8 +48,8 @@ def click_back():
     mainPage(window)
 
 # Encryption
-def changeMatrix(keyword):
-    key = keyword.get()
+def changeMatrix():
+    key = entry_key.get()
     key = playfair.removeSpecialCharacter(key)
     key = key.replace(" ", "")
     key = key.upper()
@@ -55,33 +58,32 @@ def changeMatrix(keyword):
     cip_matrix = playfair.matrix_cipher(playfair.matrix(0,5,5),key_matrix)
     return playfair.square(cip_matrix)
 
-def encrypt_message(plaintext, cipher_matrix):
-    plaintxt = plaintext.get()
-    plaintxt = playfair.removeSpecialCharacter(plaintxt)
-    plaintxt = plaintxt.replace(" ", "")
-    plaintxt = plaintxt.upper()
-    ciphertxt= playfair.encrypt(plaintxt, cipher_matrix)
+def encrypt_message():
+    text = entry_message.get()
+    text = playfair.removeSpecialCharacter(text)
+    text = text.replace(" ", "")
+    text = text.upper()
+    encryption = playfair.encrypt(text, changeMatrix())
     text_entry1.delete("1.0", END)
     text_entry2.delete("1.0", END)
-    text_entry1.insert(END, "test")
-    text_entry2.insert(END, "test")
-    if ciphertxt is not None:
-        text_entry1.insert(END, "test")
-        text_entry2.insert(END, "test")
+    if encryption is not None:
+        text_entry1.insert(END, encryption)
+        text_entry2.insert(END, add_space(encryption))
     else:
         text_entry1.insert(END, "None")
         text_entry2.insert(END, "None")
 
-def decrypt_message(ciphertext, cipher_matrix):
-    ciphertxt = ciphertext.get()
-    ciphertxt = ciphertxt.replace(" ","")
-    ciphertxt = ciphertxt.upper()
-    plaintxt = playfair.decrypt(ciphertxt, cipher_matrix)
+def decrypt_message():
+    text = entry_message.get()
+    text = playfair.removeSpecialCharacter(text)
+    text = text.replace(" ", "")
+    text = text.upper()
+    decryption = playfair.decrypt(text, changeMatrix)
     text_entry1.delete("1.0", END)
     text_entry2.delete("1.0", END)
-    if plaintxt is not None:
-        text_entry1.insert(END, plaintxt)
-        text_entry2.insert(END, plaintxt)
+    if decryption is not None:
+        text_entry1.insert(END, decryption)
+        text_entry2.insert(END, add_space(decryption))
     else:
         text_entry1.insert(END, "None")
         text_entry2.insert(END, "None")
@@ -137,9 +139,9 @@ text_entry2.grid(row=10, column=1, padx=10, pady=5, ipady=5)
 label_option = Label(window, text="Choose one :", font = ('arial ', 12), bd=15, bg="#E0E1E9")
 label_option.grid(row=6, columnspan=2, stick ='w')
 
-btn_encrypt = Button(window, text="Encrypt message!", width = "15", font = ('arial ', 10), fg="white", bg="#251F4A", command=encrypt_message(message, changeMatrix(key)))
+btn_encrypt = Button(window, text="Encrypt message!", width = "15", font = ('arial ', 10), fg="white", bg="#251F4A", command=encrypt_message)
 btn_encrypt.grid(row=7, column=0)
-btn_decrypt = Button(window, text="Decrypt message!", width = "15", font = ('arial ', 10), fg="white", bg="#251F4A", command=decrypt_message(message, changeMatrix(key)))
+btn_decrypt = Button(window, text="Decrypt message!", width = "15", font = ('arial ', 10), fg="white", bg="#251F4A", command=decrypt_message)
 btn_decrypt.grid(row=7, column=1)
 
 #Save as File

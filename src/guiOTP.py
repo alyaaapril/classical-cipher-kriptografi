@@ -16,7 +16,10 @@ window.title("One Time Pad")
 window.geometry('800x500')
 window.configure(bg="#E0E1E9")
 
-
+def add_space(text):
+    spacedText = " ".join(text[i:i + 5] for i in range(0, len(text), 5))
+    return(spacedText)
+    
 def open_file():
     file = open("kripto.txt", "r")
     text = file.read()

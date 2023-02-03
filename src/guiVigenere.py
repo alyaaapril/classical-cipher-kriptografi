@@ -2,7 +2,7 @@ import sys
 import string
 from tkinter import *
 from tkinter import ttk
-
+from StandardVigenereCipher import *
 
 import itertools
 from tkinter.messagebox import showinfo
@@ -16,6 +16,9 @@ window.title("Vigenere Cipher")
 window.geometry('800x500')
 window.configure(bg="#E0E1E9")
 
+def add_space(text):
+    spacedText = " ".join(text[i:i + 5] for i in range(0, len(text), 5))
+    return(spacedText)
 
 def open_file():
     file = open("kripto.txt", "r")
@@ -46,12 +49,24 @@ def click_back():
 
 # Encryption
 
-def encrypt_message(plaintext, cipher_matrix):
-    pass
+def encrypt_message():
+    text = entry_message.get()
+    key = entry_key.get()
+    encryption = encryptStandardVigenereCipher(text, key)
+    text_entry1.delete('1.0', END)
+    text_entry2.delete('1.0', END)
+    text_entry1.insert(END, encryption)
+    text_entry2.insert(END, add_space(encryption))
 
-def decrypt_message(ciphertext, cipher_matrix):
-    pass
 
+def decrypt_message():
+    cipher = entry_message.get()
+    key = entry_key.get()
+    decryption = decryptStandardVigenereCipher(cipher, key)
+    text_entry1.delete('1.0', END)
+    text_entry2.delete('1.0', END)
+    text_entry1.insert(END, decryption)
+    text_entry2.insert(END, add_space(decryption))
 
 title = Label(window, text = 'Vigenere Cipher', font = ('Inter', 18), bd=15, bg="#E0E1E9")
 title.grid(row=0, column=0)
@@ -103,9 +118,9 @@ text_entry2.grid(row=10, column=1, padx=10, pady=5, ipady=5)
 label_option = Label(window, text="Choose one :", font = ('arial ', 12), bd=15, bg="#E0E1E9")
 label_option.grid(row=6, columnspan=2, stick ='w')
 
-btn_encrypt = Button(window, text="Encrypt message!", width = "15", font = ('arial ', 10), fg="white", bg="#251F4A", command=encrypt_message(message, key))
+btn_encrypt = Button(window, text="Encrypt message!", width = "15", font = ('arial ', 10), fg="white", bg="#251F4A", command=encrypt_message)
 btn_encrypt.grid(row=7, column=0)
-btn_decrypt = Button(window, text="Decrypt message!", width = "15", font = ('arial ', 10), fg="white", bg="#251F4A", command=decrypt_message(message, key))
+btn_decrypt = Button(window, text="Decrypt message!", width = "15", font = ('arial ', 10), fg="white", bg="#251F4A", command=decrypt_message)
 btn_decrypt.grid(row=7, column=1)
 
 #Save as File
@@ -122,4 +137,3 @@ btn_clear.grid(row=12, columnspan=3, pady=2)
 #Back to homepage
 btn_back = Button(window, width=20, bg="#B8B8C7", text="Back to Home Page", command=click_back)
 btn_back.place(relx = 0.01, rely = 0.90, anchor ='nw')
-

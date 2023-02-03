@@ -1,4 +1,4 @@
-# Program cipher klasik vifenere cipher
+# Program cipher klasik - standard vigenere cipher
 # 26 huruf alfabet
 
 def isEqualLength(plaintext, key):
@@ -6,6 +6,10 @@ def isEqualLength(plaintext, key):
         return True
     else : 
         return False
+
+def removeNonAlphabetCharacter(string):
+    str = ''.join(i for i in string if i.isalpha())
+    return str
 
 def removeSpace(string):
     return string.replace(" ", "")
@@ -30,8 +34,8 @@ def encryptStandardVigenereCipher(plaintext, key):
     encryptedText = []
 
     #Remove space
-    plaintext = removeSpace(plaintext)
-    key = removeSpace(key)
+    plaintext = removeNonAlphabetCharacter(plaintext)
+    key = removeNonAlphabetCharacter(key)
 
     plaintext = list(plaintext.upper())
     key = list(key.upper())
@@ -51,8 +55,8 @@ def decryptStandardVigenereCipher(encryptedText, key):
     decryptedText = []
 
     #Remove space
-    encryptedText = removeSpace(encryptedText)
-    key = removeSpace(key)
+    encryptedText = removeNonAlphabetCharacter(encryptedText)
+    key = removeNonAlphabetCharacter(key)
 
     encryptedText = list(encryptedText.upper())
     key = list(key.upper())

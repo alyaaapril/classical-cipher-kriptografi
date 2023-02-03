@@ -1,10 +1,10 @@
-import sys
+# file test untuk Standard Vigenere Cipher
 
-sys.path.append("..")
+import StandardVigenereCipher
 
-from src.StandardVigenereCipher import StandardVigenereCipher
-
-plaintext = input("masukkan plaintext : ")
+plaintext = '''Dinas Pendidikan Kota Ternate meminta kepada pihak sekolah dan 
+orang tua siswa untuk jenjang pendidikan SD dan SMP se-Kota Ternate 
+untuk melarang para siswa membawa permainan lato-lato'''
 key = input("masukkan key : ")
 
 encryptedText = StandardVigenereCipher.encryptStandardVigenereCipher(plaintext,key)

@@ -127,6 +127,3 @@ class playfair:
             else:
                 print(f"{cipher_matrix[lt_curr[0]][lt_next[1]]}{cipher_matrix[lt_next[0]][lt_curr[1]]}", end = " ")
             i += 2
-
-
-

@@ -1,5 +1,7 @@
-# Program cipher klasik vifenere cipher
-# 26 huruf alfabet
+# Program cipher klasik - extended vigenere cipher
+# 256 karakter ascii
+
+import fileOperation
 
 def isEqualLength(plaintext, key):
     if (len(plaintext) == len(key)) :
@@ -18,33 +20,33 @@ def repeatKey(plaintextLength, key) :
 def encryptExtendedVigenereCipher(plaintext, key):
     encryptedText = []
 
-    plaintext = list(plaintext.upper())
-    key = list(key.upper())
+    binaryText = fileOperation.readBinaryFile(plaintext)
+    binaryKey = fileOperation.readBinaryFile(key)
+    binaryText = list(binaryText)
+    binaryKey = list(binaryKey)
 
-    if (not(isEqualLength(plaintext, key))):
-        key = repeatKey(len(plaintext), key)
+    if (not(isEqualLength(binaryText, binaryKey))):
+        binaryKey = repeatKey(len(binaryText), binaryKey)
    
-    for i in range (len(plaintext)):
-        asciiText = ord(plaintext[i])
-        asciiKey = ord(key[i])
-        encryptedValue = "" + chr((asciiText + asciiKey) % 256)
+    for i in range (len(binaryText)):
+        encryptedValue = (binaryText[i] + binaryKey[i]) % 256
         encryptedText.append(encryptedValue)
 
-    return("".join(encryptedText))
+    return(encryptedText)
 
 def decryptExtendedVigenereCipher(encryptedText, key):
     decryptedText = []
 
-    encryptedText = list(encryptedText.upper())
-    key = list(key.upper())
+    binaryText = fileOperation.readBinaryFile(encryptedText)
+    binaryKey = fileOperation.readBinaryFile(key)
+    binaryText = list(binaryText)
+    binaryKey = list(binaryKey)
 
-    if (not(isEqualLength(encryptedText, key))):
-        key = repeatKey(len(encryptedText), key)
-   
-    for i in range (len(encryptedText)):
-        asciiText = ord(encryptedText[i])
-        asciiKey = ord(key[i])
-        decryptedValue = "" + chr(((asciiText - asciiKey) + 256) % 256)
+    if (not(isEqualLength(binaryText, binaryKey))):
+        binaryKey = repeatKey(len(binaryText), binaryKey)
+
+    for i in range (len(binaryText)):
+        decryptedValue =(((binaryText[i] - binaryKey[i]) + 256) % 256)
         decryptedText.append(decryptedValue)
 
-    return("".join(decryptedText))
+    return(decryptedText)
